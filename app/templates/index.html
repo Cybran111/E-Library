@@ -2,9 +2,84 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>E-Library</title>
+
+    <script type="text/template" id="author-view-template">
+        <li class="list-group-item">
+
+            <p class="author-name"> <%= name %> </p>
+
+            <div style="display: none" class="input-group edit-author">
+                <input type="text" id="author-name-input" class="form-control">
+                  <span class="input-group-btn">
+                    <button id="update-author" class="btn btn-default" type="button">Go!</button>
+                 </span>
+            </div>
+            <!-- /input-group -->
+
+            <button class="btn btn-default edit">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+
+            <button class="btn btn-default delete">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </li>
+    </script>
+
 </head>
 <body>
+<div class="container-fluid">
 
+    <div class="col-md-6" id="authors">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <input type="search" class="form-control" placeholder="Author">
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </form>
+        <ul class="list-group" id="authors-list"></ul>
+
+        <div class="new-author">
+            <button type="button" id="add-author" class="btn btn-default btn-block">Add author</button>
+            <div style="display: none" class="input-group create-author">
+                <input type="text" id="new-author-name" class="form-control">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" id="submit" type="button">Go!</button>
+                 </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6" id="books">
+
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <input type="search" class="form-control" placeholder="Book">
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </form>
+
+        <ul class="list-group">
+            {% for book in books %}
+                <li class="list-group-item">
+                    {{ book.title }}
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <button type="button" id="append-book" class="btn btn-default btn-block">Add book</button>
+    </div>
+</div>
+
+
+{% include "static.html" %}
 </body>
 </html>

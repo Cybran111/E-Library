@@ -1,0 +1,14 @@
+<% _.each(books, function(book) { %>
+<li class="list-group-item">
+
+    <%= book.get("title") %>
+
+    <button type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-pencil"></span>
+    </button>
+
+    <button type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
+</li>
+<% }); %>
