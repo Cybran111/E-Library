@@ -5,6 +5,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>E-Library</title>
 
+
+    {#Can't load template from external source#}
     {#    <script type="text/template" id="author-view-template" src="static/templates/author.html">#}
     <script type="text/template" id="author-view-template">
         <li class="list-group-item">
@@ -18,13 +20,18 @@
                  </span>
             </div>
             <!-- /input-group -->
-            <h6>
-                <% book_list = []; %>
+            <h6 class="written-books">
+            <% book_list = []; %>
                 <% _.each(books, function(book) { %>
                 <% book_list.push("\""+book+"\""); %>
                 <% });%>
                 <%= book_list.join(", ") %>
             </h6>
+
+            <div style="display: none" class="edit-written-books">
+                <textarea id="books-input" class="form-control"></textarea>
+                <button id="update-books" class="btn btn-default" type="button">Go!</button>
+            </div>
 
             <button class="btn btn-default edit">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -32,6 +39,10 @@
 
             <button class="btn btn-default delete">
                 <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+            <button class="btn btn-default books">
+                <span class="glyphicon glyphicon-list"></span>
             </button>
         </li>
     </script>
@@ -49,13 +60,14 @@
                  </span>
             </div>
             <!-- /input-group -->
-            <h6>
-                <% author_list = []; %>
-                <% _.each(authors, function(author) { %>
-                <% author_list.push("\""+author+"\""); %>
-                <% });%>
-                <%= author_list.join(", ") %>
+            <h6 class="authors">
+                <%= authors.join(", ") %>
             </h6>
+
+            <div style="display: none" class="edit-authors">
+                <textarea id="authors-input" class="form-control"></textarea>
+                <button id="update-authors" class="btn btn-default" type="button">Go!</button>
+            </div>
 
             <button class="btn btn-default edit">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -63,6 +75,10 @@
 
             <button class="btn btn-default delete">
                 <span class="glyphicon glyphicon-remove"></span>
+            </button>
+
+            <button class="btn btn-default authors">
+                <span class="glyphicon glyphicon-list"></span>
             </button>
         </li>
     </script>

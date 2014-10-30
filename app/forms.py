@@ -1,11 +1,13 @@
 from flask_wtf import Form
-from wtforms import TextField
+from wtforms import StringField
 from wtforms.validators import DataRequired
 
 
 class AuthorForm(Form):
-    name = TextField('name', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired()])
+    # Maybe it will works in the future...
+    # books = FieldList(StringField('books', validators=[DataRequired()]))
 
 
 class BookForm(Form):
-    title = TextField('title', validators=[DataRequired()])
+    title = StringField('title', validators=[DataRequired()])

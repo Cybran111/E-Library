@@ -18,7 +18,9 @@
         events: {
             'click button#update-book': 'update',
             'click button.delete': 'remove',
-            'click button.edit': 'enterEdit'
+            'click button.edit': 'showEditName',
+            'click button.authors': 'showEditAuthors',
+            'click button#update-authors': 'update'
         },
 
         template: _.template($("#book-view-template").html()),
@@ -39,19 +41,20 @@
         },
 
         remove: function () {
-//            console.log(this.model);
             this.model.destroy();
         },
 
         update: function () {
-
+            temp_title = $("input#book-title-input", this.el).val();
+            temp_authors = $("textarea#authors-input", this.el).val().split("\n");
             this.model.set({
-                name: $("input#book-name-input", this.el).val()
+                title: (temp_title) ? temp_title : this.model.get("title"),
+                authors: (temp_authors[0]) ? temp_authors : this.model.get("authors")
             });
             this.model.save();
         },
 
-        enterEdit: function () {
+        showEditName: function () {
             if ($(".edit-book", this.el).css('display') == 'none') {
 
                 $("#book-title", this.el).css('display', 'none');
@@ -61,6 +64,20 @@
             } else {
                 $("#book-title", this.el).css('display', 'block');
                 $(".edit-book", this.el).css('display', 'none');
+            }
+        },
+
+        showEditAuthors: function () {
+            if ($("div.edit-authors", this.el).css('display') == 'none') {
+
+                $("h6.authors", this.el).css('display', 'none');
+                $("textarea#authors-input", this.el).val(this.model.get('authors').join("\n"));
+                $("div.edit-authors", this.el).css('display', 'block');
+
+
+            } else {
+                $("h6.authors", this.el).css('display', 'block');
+                $("div.edit-authors", this.el).css('display', 'none');
             }
         }
 
@@ -109,13 +126,12 @@
         },
 
         showNewBook: function () {
-            var new_author_block = "div.create-author";
-            if ($(new_author_block, this.el).css('display') == 'none') {
-                $(new_author_block, this.el).css('display', 'block');
+            if ($("div.create-book", this.el).css('display') == 'none') {
+                $("div.create-book", this.el).css('display', 'block');
 
 
             } else {
-                $(new_author_block, this.el).css('display', 'none');
+                $("div.create-book", this.el).css('display', 'none');
             }
 
         }

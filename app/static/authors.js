@@ -3,15 +3,6 @@
  */
 
 (function ($) {
-    var csrftoken = $('meta[name=csrf-token]').attr('content');
-
-    $.ajaxSetup({
-        beforeSend: function (xhr, settings) {
-            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken)
-            }
-        }
-    });
 
     var Author = Backbone.Model.extend({
         urlRoot: '/authors'
@@ -27,7 +18,9 @@
         events: {
             'click button#update-author': 'update',
             'click button.delete': 'remove',
-            'click button.edit': 'enterEdit'
+            'click button.edit': 'showEditName',
+            'click button.books': 'showEditBooks',
+            'click button#update-books': 'update'
         },
 
         template: _.template($("#author-view-template").html()),
@@ -53,14 +46,16 @@
         },
 
         update: function () {
-
+            temp_name = $("input#author-name-input", this.el).val();
+            temp_books = $("textarea#books-input", this.el).val().split("\n");
             this.model.set({
-                name: $("input#author-name-input", this.el).val()
+                name: (temp_name) ? temp_name : this.model.get("name"),
+                books: (temp_books[0]) ? temp_books : this.model.get("books")
             });
             this.model.save();
         },
 
-        enterEdit: function () {
+        showEditName: function () {
             if ($(".edit-author", this.el).css('display') == 'none') {
 
                 $("#author-name", this.el).css('display', 'none');
@@ -68,9 +63,23 @@
                 $(".edit-author", this.el).css('display', 'block');
 
 
-            } else if ($(".edit-author", this.el).css('display') == 'block') {
+            } else {
                 $("#author-name", this.el).css('display', 'block');
                 $(".edit-author", this.el).css('display', 'none');
+            }
+        },
+
+        showEditBooks: function () {
+            if ($("div.edit-written-books", this.el).css('display') == 'none') {
+
+                $("h6.written-books", this.el).css('display', 'none');
+                $("textarea#books-input", this.el).val(this.model.get('books').join("\n"));
+                $("div.edit-written-books", this.el).css('display', 'block');
+
+
+            } else {
+                $("h6.written-books", this.el).css('display', 'block');
+                $("div.edit-written-books", this.el).css('display', 'none');
             }
         }
 
@@ -81,15 +90,15 @@
 
 
         events: {
-            'click button#submit': 'addBook',
-            'click button#add-author': 'showNewBook'
+            'click button#submit': 'addAuthor',
+            'click button#add-author': 'showNewAuthor'
         },
 
         initialize: function () {
-            _.bindAll(this, 'render', 'addBook', 'appendBook'); // fixes loss of context for 'this' within methods
+            _.bindAll(this, 'render', 'addAuthor', 'appendAuthor'); // fixes loss of context for 'this' within methods
 
             this.collection = new AuthorList();
-            this.collection.bind('add', this.appendBook); // collection event binder
+            this.collection.bind('add', this.appendAuthor); // collection event binder
             this.collection.fetch();
             this.render();
         },
@@ -100,7 +109,7 @@
             }, this)
         },
 
-        addBook: function () {
+        addAuthor: function () {
             var author = new Author();
             author.set({
                 name: $("input#new-author-name", this.el).val()
@@ -110,7 +119,7 @@
             author.save()
         },
 
-        appendBook: function (author) {
+        appendAuthor: function (author) {
 
             var authorView = new AuthorView({
                 model: author
@@ -118,7 +127,7 @@
             $('#authors-list', this.el).append(authorView.render().el);
         },
 
-        showNewBook: function () {
+        showNewAuthor: function () {
             if ($("div.create-author", this.el).css('display') == 'none') {
 
                 $("div.create-author", this.el).css('display', 'block');
