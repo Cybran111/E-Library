@@ -1,12 +1,20 @@
 <li class="list-group-item">
 
-    <%= name %>
+    <p class="author-name"> <%= name %> </p>
 
-    <button type="button" class="btn btn-default">
+    <div style="display: none" class="input-group edit-author">
+        <input type="text" id="author-name-input" class="form-control">
+                  <span class="input-group-btn">
+                    <button id="update-author" class="btn btn-default" type="button">Go!</button>
+                 </span>
+    </div>
+    <!-- /input-group -->
+
+    <button class="btn btn-default edit">
         <span class="glyphicon glyphicon-pencil"></span>
     </button>
 
-    <button type="button" class="btn btn-default">
+    <button class="btn btn-default delete">
         <span class="glyphicon glyphicon-remove"></span>
     </button>
 </li>

@@ -5,10 +5,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>E-Library</title>
 
+    {#    <script type="text/template" id="author-view-template" src="static/templates/author.html">#}
     <script type="text/template" id="author-view-template">
         <li class="list-group-item">
 
-            <p class="author-name"> <%= name %> </p>
+            <h4 id="author-name"> <%= name %></h4>
 
             <div style="display: none" class="input-group edit-author">
                 <input type="text" id="author-name-input" class="form-control">
@@ -17,6 +18,44 @@
                  </span>
             </div>
             <!-- /input-group -->
+            <h6>
+                <% book_list = []; %>
+                <% _.each(books, function(book) { %>
+                <% book_list.push("\""+book+"\""); %>
+                <% });%>
+                <%= book_list.join(", ") %>
+            </h6>
+
+            <button class="btn btn-default edit">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+
+            <button class="btn btn-default delete">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </li>
+    </script>
+
+
+    <script type="text/template" id="book-view-template">
+        <li class="list-group-item">
+
+            <h4 id="book-title"> <%= title %></h4>
+
+            <div style="display: none" class="input-group edit-book">
+                <input type="text" id="book-title-input" class="form-control">
+                  <span class="input-group-btn">
+                    <button id="update-book" class="btn btn-default" type="button">Go!</button>
+                 </span>
+            </div>
+            <!-- /input-group -->
+            <h6>
+                <% author_list = []; %>
+                <% _.each(authors, function(author) { %>
+                <% author_list.push("\""+author+"\""); %>
+                <% });%>
+                <%= author_list.join(", ") %>
+            </h6>
 
             <button class="btn btn-default edit">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -46,7 +85,7 @@
             <div style="display: none" class="input-group create-author">
                 <input type="text" id="new-author-name" class="form-control">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" id="submit" type="button">Go!</button>
+                    <button class="btn btn-primary" id="submit" type="button">Go!</button>
                  </span>
             </div>
         </div>
@@ -61,21 +100,17 @@
             </div>
         </form>
 
-        <ul class="list-group">
-            {% for book in books %}
-                <li class="list-group-item">
-                    {{ book.title }}
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </li>
-            {% endfor %}
-        </ul>
+        <ul class="list-group" id="books-list"></ul>
 
-        <button type="button" id="append-book" class="btn btn-default btn-block">Add book</button>
+        <div class="new-book">
+            <button type="button" id="add-book" class="btn btn-default btn-block">Add book</button>
+            <div style="display: none" class="input-group create-book">
+                <input type="text" id="new-book-title" class="form-control">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" id="submit" type="button">Go!</button>
+                 </span>
+            </div>
+        </div>
     </div>
 </div>
 

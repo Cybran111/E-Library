@@ -5,5 +5,7 @@ from wtforms.validators import DataRequired
 
 class AuthorForm(Form):
     name = TextField('name', validators=[DataRequired()])
-    # name = TextField('name')
 
+
+class BookForm(Form):
+    title = TextField('title', validators=[DataRequired()])
