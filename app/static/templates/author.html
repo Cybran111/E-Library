@@ -1,6 +1,6 @@
 <li class="list-group-item">
 
-    <p class="author-name"> <%= name %> </p>
+    <h4 id="author-name"> <%= name %></h4>
 
     <div style="display: none" class="input-group edit-author">
         <input type="text" id="author-name-input" class="form-control">
@@ -9,6 +9,18 @@
                  </span>
     </div>
     <!-- /input-group -->
+    <h6 class="written-books">
+        <% book_list = []; %>
+        <% _.each(books, function(book) { %>
+        <% book_list.push("\""+book+"\""); %>
+        <% });%>
+        <%= book_list.join(", ") %>
+    </h6>
+
+    <div style="display: none" class="edit-written-books">
+        <textarea id="books-input" class="form-control"></textarea>
+        <button id="update-books" class="btn btn-default" type="button">Go!</button>
+    </div>
 
     <button class="btn btn-default edit">
         <span class="glyphicon glyphicon-pencil"></span>
@@ -16,5 +28,9 @@
 
     <button class="btn btn-default delete">
         <span class="glyphicon glyphicon-remove"></span>
+    </button>
+
+    <button class="btn btn-default books">
+        <span class="glyphicon glyphicon-list"></span>
     </button>
 </li>

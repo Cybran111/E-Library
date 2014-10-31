@@ -7,51 +7,55 @@
 
 
     {#Can't load template from external source#}
-    {#    <script type="text/template" id="author-view-template" src="static/templates/author.html">#}
     <script type="text/template" id="author-view-template">
-        <li class="list-group-item">
+        <a id="author-name" href="#/authors/<%= name %>">
+            <h4>
+                <strong><%= name %></strong>
+            </h4>
+        </a>
+        {#        <h4 id="author-name"><%= name %></h4>#}
 
-            <h4 id="author-name"> <%= name %></h4>
-
-            <div style="display: none" class="input-group edit-author">
-                <input type="text" id="author-name-input" class="form-control">
+        <div style="display: none" class="input-group edit-author">
+            <input type="text" id="author-name-input" class="form-control">
                   <span class="input-group-btn">
                     <button id="update-author" class="btn btn-default" type="button">Go!</button>
                  </span>
-            </div>
-            <!-- /input-group -->
-            <h6 class="written-books">
+        </div>
+        <!-- /input-group -->
+        <h6 class="written-books">
             <% book_list = []; %>
-                <% _.each(books, function(book) { %>
-                <% book_list.push("\""+book+"\""); %>
-                <% });%>
-                <%= book_list.join(", ") %>
-            </h6>
+            <% _.each(books, function(book) { %>
+            <% book_list.push("\""+book.title+"\""); %>
+            <% });%>
+            <%= book_list.join(", ") %>
+        </h6>
 
-            <div style="display: none" class="edit-written-books">
-                <textarea id="books-input" class="form-control"></textarea>
-                <button id="update-books" class="btn btn-default" type="button">Go!</button>
-            </div>
+        <div style="display: none" class="edit-written-books">
+            <textarea id="books-input" class="form-control"></textarea>
+            <button id="update-books" class="btn btn-default" type="button">Go!</button>
+        </div>
 
-            <button class="btn btn-default edit">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
+        <button class="btn btn-default edit">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </button>
 
-            <button class="btn btn-default delete">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
+        <button class="btn btn-default delete">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
 
-            <button class="btn btn-default books">
-                <span class="glyphicon glyphicon-list"></span>
-            </button>
-        </li>
+        <button class="btn btn-default books">
+            <span class="glyphicon glyphicon-list"></span>
+        </button>
     </script>
 
 
     <script type="text/template" id="book-view-template">
-        <li class="list-group-item">
 
-            <h4 id="book-title"> <%= title %></h4>
+        <a id="author-name" href="#/books/<%= title %>">
+            <h4>
+                <strong><%= title %></strong>
+            </h4>
+        </a>
 
             <div style="display: none" class="input-group edit-book">
                 <input type="text" id="book-title-input" class="form-control">
@@ -80,12 +84,22 @@
             <button class="btn btn-default authors">
                 <span class="glyphicon glyphicon-list"></span>
             </button>
-        </li>
+        </a>
     </script>
 
 </head>
 <body>
+
 <div class="container-fluid">
+
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <a class="navbar-brand" href=" ">
+                <span class="glyphicon glyphicon-book"></span>
+            </a>
+        </div>
+    </nav>
 
     <div class="col-md-6" id="authors">
         <form class="form-inline" role="form">
@@ -94,7 +108,7 @@
                 <button type="submit" class="btn btn-default">Search</button>
             </div>
         </form>
-        <ul class="list-group" id="authors-list"></ul>
+        <div class="list-group" id="authors-list"></div>
 
         <div class="new-author">
             <button type="button" id="add-author" class="btn btn-default btn-block">Add author</button>
@@ -116,7 +130,7 @@
             </div>
         </form>
 
-        <ul class="list-group" id="books-list"></ul>
+        <div class="list-group" id="books-list"></div>
 
         <div class="new-book">
             <button type="button" id="add-book" class="btn btn-default btn-block">Add book</button>
