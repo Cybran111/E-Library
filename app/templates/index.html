@@ -13,7 +13,6 @@
                 <strong><%= name %></strong>
             </h4>
         </a>
-        {#        <h4 id="author-name"><%= name %></h4>#}
 
         <div style="display: none" class="input-group edit-author">
             <input type="text" id="author-name-input" class="form-control">
@@ -25,7 +24,7 @@
         <h6 class="written-books">
             <% book_list = []; %>
             <% _.each(books, function(book) { %>
-            <% book_list.push("\""+book.title+"\""); %>
+            <% book_list.push("\""+book+"\""); %>
             <% });%>
             <%= book_list.join(", ") %>
         </h6>
@@ -39,12 +38,12 @@
             <span class="glyphicon glyphicon-pencil"></span>
         </button>
 
-        <button class="btn btn-default delete">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-
         <button class="btn btn-default books">
             <span class="glyphicon glyphicon-list"></span>
+        </button>
+
+        <button class="btn btn-default delete">
+            <span class="glyphicon glyphicon-remove"></span>
         </button>
     </script>
 
@@ -76,15 +75,14 @@
             <button class="btn btn-default edit">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
+        <button class="btn btn-default authors">
+            <span class="glyphicon glyphicon-list"></span>
+        </button>
 
             <button class="btn btn-default delete">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
 
-            <button class="btn btn-default authors">
-                <span class="glyphicon glyphicon-list"></span>
-            </button>
-        </a>
     </script>
 
 </head>
@@ -95,19 +93,32 @@
 
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
-            <a class="navbar-brand" href=" ">
-                <span class="glyphicon glyphicon-book"></span>
+            <a class="navbar-brand" href="">
+            <span class="glyphicon glyphicon-book"></span>
             </a>
+            {#            <form action="auth" class="navbar-form navbar-left" >#}
+            {#                    <div class="form-group">#}
+            {#                      <input type="text" class="form-control" placeholder="Login">#}
+            {#                      <input type="password" class="form-control" placeholder="Password">#}
+            {#                    </div>#}
+            {#                    <button type="submit" name="action" value="login" class="btn btn-default">Log in</button>#}
+            {#                    <button type="submit" name="action" value="register" class="btn btn-default">Register</button>#}
+            {#                  </form>#}
+
         </div>
     </nav>
 
     <div class="col-md-6" id="authors">
-        <form class="form-inline" role="form">
-            <div class="form-group">
-                <input type="search" class="form-control" placeholder="Author">
-                <button type="submit" class="btn btn-default">Search</button>
-            </div>
-        </form>
+
+        <div class="input-group">
+            <input type="text" class="form-control search-author">
+          <span class="input-group-btn">
+            <a class="btn btn-default search-author" href="#/search/author">Search</a>
+          </span>
+        </div>
+        <!-- /input-group -->
+
+
         <div class="list-group" id="authors-list"></div>
 
         <div class="new-author">
@@ -123,12 +134,13 @@
 
     <div class="col-md-6" id="books">
 
-        <form class="form-inline" role="form">
-            <div class="form-group">
-                <input type="search" class="form-control" placeholder="Book">
-                <button type="submit" class="btn btn-default">Search</button>
-            </div>
-        </form>
+        <div class="input-group">
+            <input type="text" class="form-control search-book">
+          <span class="input-group-btn">
+            <a class="btn btn-default search-book" href="#/search/book">Search</a>
+          </span>
+        </div>
+        <!-- /input-group -->
 
         <div class="list-group" id="books-list"></div>
 

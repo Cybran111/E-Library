@@ -16,13 +16,11 @@ var AuthorView = Backbone.View.extend({
     className: "list-group-item",
 
     events: {
-        'click button#update-author': 'update',
         'click button.delete': 'remove',
         'click button.edit': 'showEditName',
         'click button.books': 'showEditBooks',
-        'click button#update-books': 'update'
-//        'click .list-group-item' : 'active',
-//        'click h4#author-name': 'active'
+        'click button#update-books': 'update',
+        'click button#update-author': 'update'
     },
 
     template: _.template($("#author-view-template").html()),
@@ -59,36 +57,35 @@ var AuthorView = Backbone.View.extend({
         temp_books = $("textarea#books-input", this.el).val().split("\n");
         this.model.set({
             name: (temp_name) ? temp_name : this.model.get("name"),
-            books: (temp_books[0]) ? temp_books : this.model.get("books")
+            books: temp_books
         });
         this.model.save();
     },
 
     showEditName: function () {
-        if ($(".edit-author", this.el).css('display') == 'none') {
 
-            $("#author-name", this.el).css('display', 'none');
+        if ($(".edit-author", this.el).is(':hidden')) {
+            $("#author-name", this.el).hide();
             $("input#author-name-input", this.el).val(this.model.get('name'));
-            $(".edit-author", this.el).css('display', 'block');
-
-
+            $(".edit-author", this.el).show();
         } else {
-            $("#author-name", this.el).css('display', 'block');
-            $(".edit-author", this.el).css('display', 'none');
+            $("#author-name", this.el).show();
+            $(".edit-author", this.el).hide();
         }
     },
 
     showEditBooks: function () {
-        if ($("div.edit-written-books", this.el).css('display') == 'none') {
 
-            $("h6.written-books", this.el).css('display', 'none');
+        if ($("div.edit-written-books", this.el).is(':hidden')) {
+
+            $("h6.written-books", this.el).hide();
             $("textarea#books-input", this.el).val(this.model.get('books').join("\n"));
-            $("div.edit-written-books", this.el).css('display', 'block');
+            $("div.edit-written-books", this.el).show();
 
 
         } else {
-            $("h6.written-books", this.el).css('display', 'block');
-            $("div.edit-written-books", this.el).css('display', 'none');
+            $("h6.written-books", this.el).show();
+            $("div.edit-written-books", this.el).hide();
         }
     }
 
@@ -98,12 +95,19 @@ var AuthorListView = Backbone.View.extend({
     el: $('#authors'), // attaches `this.el` to an existing element.
 
     events: {
+        'change input.search-author': 'changeSearchQuery',
         'click button#submit': 'addAuthor',
         'click button#add-author': 'showNewAuthor'
     },
 
-    initialize: function () {
+    changeSearchQuery: function () {
+        search_query = $('input.search-author').val();
+        $("a.search-author").attr("href", "#/search/author/" + search_query)
+    },
+
+    initialize: function (books) {
         _.bindAll(this, 'render', 'addAuthor', 'appendAuthor'); // fixes loss of context for 'this' within methods
+        this.books = books.collection;
 
         this.childs = [];
         this.collection.bind('add', this.appendAuthor); // collection event binder

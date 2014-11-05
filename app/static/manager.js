@@ -12,14 +12,16 @@
         }
     });
 
+
     var AppRouter = Backbone.Router.extend({
+
         initialize: function () {
             this.authorList = new AuthorList();
-            this.authorListView = new AuthorListView({collection: this.authorList});
-
-
             this.bookList = new BookList();
-            this.bookListView = new BookListView({collection: this.bookList});
+
+            this.bookListView = new BookListView({ collection: this.bookList });
+            this.authorListView = new AuthorListView({ collection: this.authorList }
+            );
 
             this.on("route:getAuthor", function (author_name) {
                 this.switchAuthor(author_name);
@@ -28,11 +30,21 @@
             this.on("route:getBook", function (book_title) {
                 this.switchBook(book_title);
             });
+
+//            this.on("route:defaultRoute", function () {
+//                console.log("fdfs");
+//                location.reload();
+//            });
+
+
         },
 
         routes: {
             "authors/:author_name": "getAuthor",
-            "books/:book_title": "getBook"
+            "books/:book_title": "getBook",
+            "search/author/:search_query": "getAuthor",
+            "search/book/:search_query": "getBook"
+//            "": "defaultRoute" // Backbone will try match the route above first
         },
 
         switchAuthor: function (author_name) {

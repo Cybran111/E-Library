@@ -89,12 +89,20 @@ var BookListView = Backbone.View.extend({
 
 
     events: {
+        'change input.search-book': 'changeSearchQuery',
         'click button#submit': 'addBook',
         'click button#add-book': 'showNewBook'
     },
 
+
+    changeSearchQuery: function () {
+        search_query = $('input.search-book').val();
+        $("a.search-book").attr("href", "#/search/book/" + search_query)
+    },
+
     initialize: function () {
         _.bindAll(this, 'render', 'addBook', 'appendBook'); // fixes loss of context for 'this' within methods
+
 
         this.childs = [];
         this.collection.bind('add', this.appendBook); // collection event binder
