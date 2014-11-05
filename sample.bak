@@ -1,0 +1,34 @@
+INSERT INTO "book" VALUES(1,'Fahrenheit 451');
+INSERT INTO "book" VALUES(2,'Собачье сердце');
+INSERT INTO "book" VALUES(3,'The Old Man and the Sea');
+INSERT INTO "book" VALUES(4,'The Teachings of Don Juan, A Yaqui Way of Knowledge');
+INSERT INTO "book" VALUES(5,'A Doll''s House');
+INSERT INTO "book" VALUES(6,'Трудно быть Богом');
+INSERT INTO "book" VALUES(7,'Пикник на обочине');
+INSERT INTO "book" VALUES(8,'Парень из преисподней');
+INSERT INTO "book" VALUES(9,'Painted Veil');
+INSERT INTO "book" VALUES(10,'A Change of Heart');
+
+
+INSERT INTO "book_author_xref" VALUES(1,4);
+INSERT INTO "book_author_xref" VALUES(4,3);
+INSERT INTO "book_author_xref" VALUES(5,5);
+INSERT INTO "book_author_xref" VALUES(6,7);
+INSERT INTO "book_author_xref" VALUES(7,7);
+INSERT INTO "book_author_xref" VALUES(9,8);
+INSERT INTO "book_author_xref" VALUES(10,9);
+INSERT INTO "book_author_xref" VALUES(2,2);
+INSERT INTO "book_author_xref" VALUES(3,1);
+INSERT INTO "book_author_xref" VALUES(7,6);
+INSERT INTO "book_author_xref" VALUES(8,6);
+INSERT INTO "book_author_xref" VALUES(6,6);
+
+INSERT INTO "author" VALUES(1,'Ernest Hemingway');
+INSERT INTO "author" VALUES(2,'Михаил Булгаков');
+INSERT INTO "author" VALUES(3,'Carlos Castaneda');
+INSERT INTO "author" VALUES(4,'Ray Bradbury');
+INSERT INTO "author" VALUES(5,'Genrik Ibsen');
+INSERT INTO "author" VALUES(6,'Борис Стругацкий');
+INSERT INTO "author" VALUES(7,'Аркадий Стругацкий');
+INSERT INTO "author" VALUES(8,'Sommerset Maugham');
+INSERT INTO "author" VALUES(9,'Jodi Picoult');
