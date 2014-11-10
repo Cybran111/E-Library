@@ -13,6 +13,6 @@ if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
 else:
     api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
 
-with open('samples.bak', 'r') as content_file:
+with open('sample.bak', 'r') as content_file:
     for row in content_file:
         db.engine.execute(row)

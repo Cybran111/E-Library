@@ -112,8 +112,6 @@ var AuthorListView = Backbone.View.extend({
         this.childs = [];
         this.collection.bind('add', this.appendAuthor); // collection event binder
         this.collection.bind('reset', this.render);
-        this.collection.fetch();
-        this.render();
     },
 
     render: function () {
@@ -126,6 +124,7 @@ var AuthorListView = Backbone.View.extend({
             this.appendAuthor(author)
         }, this)
     },
+
 
     addAuthor: function () {
         var author = new Author();

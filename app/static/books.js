@@ -107,8 +107,9 @@ var BookListView = Backbone.View.extend({
         this.childs = [];
         this.collection.bind('add', this.appendBook); // collection event binder
         this.collection.bind('reset', this.render);
-        this.collection.fetch();
-        this.render();
+
+//        this.collection.fetch();
+//        this.render();
     },
 
     render: function () {
